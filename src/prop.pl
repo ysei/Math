@@ -160,6 +160,9 @@ not(1, 0).
 
 :- begin_tests(prop).
 
+test(vars) :-
+        vars(or(var(q), var(p)), [p, q]). 
+
 test(or) :-
         eval(or(var(p), var(q)), [p-1, q-0], 1).
 
