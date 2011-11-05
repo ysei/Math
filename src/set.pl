@@ -31,3 +31,11 @@ subset([X|Y], [X|Z]) :-
         subset(Y, Z).
 subset([_|Y], Z) :-
         subset(Y, Z).
+
+
+%% powerset(+Set, -Powerset)
+%
+% Powerset is the powerset of Set.
+
+powerset(Set, Powerset) :-
+        setof(Subset, subset(Set, Subset), Powerset).
