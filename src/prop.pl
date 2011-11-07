@@ -158,6 +158,30 @@ not(0, 1).
 not(1, 0).
 
 
+%% valuation(+Vars, -Valuation).
+%
+% Valuation is a valuation for the given set of variable names.
+% This predicate is a generator. For example, for [a, b] it will
+% return [a-0, b-0], [a-0, b-1], [a-1, b-0] and [a-1, b-1].
+
+valuation([X|Y], [X-0|Z]) :-
+        valuation(Y, Z).
+valuation([X|Y], [X-1|Z]) :-
+        valuation(Y, Z).
+valuation([], []).
+
+
+%% tautology(+Proposition)
+%
+% True if proposition is a tautology.
+% Uses the truth-table method, that is generate all the possible valuations
+% and check that the evaluation of the proposition gives 1 for all of them.
+
+tautology(Prop) :-
+        vars(Prop, Vars),
+        forall(valuation(Vars, Val), eval(Prop, Val, 1)).
+
+
 :- begin_tests(prop).
 
 test(vars) :-
@@ -165,5 +189,8 @@ test(vars) :-
 
 test(or) :-
         eval(or(var(p), var(q)), [p-1, q-0], 1).
+
+test(taut) :-
+        tautology(or(var(p), not(var(p)))).
 
 :- end_tests(prop).
