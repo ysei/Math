@@ -44,6 +44,23 @@ vec_dot([X|Xs], [Y|Ys], S0, Z) :-
         vec_dot(Xs, Ys, S, Z).
 
 
+%% mat_mult(+A, +B, -C)
+
+mat_mult(A, B, C) :-
+        transpose(B, BT),
+        mat_mult1(A, BT, C).
+
+mat_mult1([], _, []).
+mat_mult1([V|Vs], B, [X|Xs]) :-
+        mat_mult2(B, V, X),
+        mat_mult1(Vs, B, Xs).
+
+mat_mult2([], _, []).
+mat_mult2([V|Vs], Y, [Z|Zs]) :-
+        vec_dot(V, Y, Z),
+        mat_mult2(Vs, Y, Zs).
+
+
 %% transpose(+Matrix, -Transpose)
 
 transpose([], []).
