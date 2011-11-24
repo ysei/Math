@@ -16,32 +16,7 @@
 */
 :- module(matrix, []).
 
-
-%% vec_sum(+V1, +V2, -VR)
-
-vec_sum([], [], []).
-vec_sum([X|Xs], [Y|Ys], [Z|Zs]) :-
-        Z is X + Y,
-        vec_sum(Xs, Ys, Zs).
-
-
-%% vec_prod(+V1, +V2, -VR)
-
-vec_prod([], [], []).
-vec_prod([X|Xs], [Y|Ys], [Z|Zs]) :-
-        Z is X * Y,
-        vec_prod(Xs, Ys, Zs).
-
-
-%% vec_dot(+V1, +V2, -S)
-
-vec_dot(X, Y, Z) :-
-        vec_dot(X, Y, 0, Z).
-
-vec_dot([], [], Z, Z).
-vec_dot([X|Xs], [Y|Ys], S0, Z) :-
-        S is X * Y + S0,
-        vec_dot(Xs, Ys, S, Z).
+:- use_module('vector.pl', [vec_dot/3]).
 
 
 %% mat_mult(+A, +B, -C)
@@ -79,15 +54,6 @@ tr_first([Row0|Rows0], [Elem|Elems], [Row1|Rows1]) :-
 
 
 :- begin_tests(matrix).
-
-test(vec_sum) :-
-        vec_sum([1,2,3], [1,2,3], [2,4,6]).
-
-test(vec_prod) :-
-        vec_prod([1,2,3], [1,2,3], [1,4,9]).
-
-test(vec_dot) :-
-        vec_dot([1,2,3], [1,2,3], 14).
 
 test(transpose) :-
         transpose([[1,2,3], [a,b,c]], [[1,a], [2,b], [3,c]]).
