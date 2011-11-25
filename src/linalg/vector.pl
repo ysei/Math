@@ -14,45 +14,49 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-:- module(vector, [vec_dot/3]).
+:- module(vector,
+          [ sum/3,              % +X:vector, +Y:vector, -Z:vector
+            prod/3,             % +X:vector, +Y:vector, -Z:vector
+            dot/3               % +X:vector, +Y:vector, -Z:scalar
+          ]).
 
 
-%% vec_sum(+V1, +V2, -VR)
+%% sum(+X:vector, +Y:vector, -Z:vector)
 
-vec_sum([], [], []).
-vec_sum([X|Xs], [Y|Ys], [Z|Zs]) :-
+sum([], [], []).
+sum([X|Xs], [Y|Ys], [Z|Zs]) :-
         Z is X + Y,
-        vec_sum(Xs, Ys, Zs).
+        sum(Xs, Ys, Zs).
 
 
-%% vec_prod(+V1, +V2, -VR)
+%% prod(+X:vector, +Y:vector, -Z:vector)
 
-vec_prod([], [], []).
-vec_prod([X|Xs], [Y|Ys], [Z|Zs]) :-
+prod([], [], []).
+prod([X|Xs], [Y|Ys], [Z|Zs]) :-
         Z is X * Y,
-        vec_prod(Xs, Ys, Zs).
+        prod(Xs, Ys, Zs).
 
 
-%% vec_dot(+V1, +V2, -S)
+%% dot(+X:vector, +Y:vector, -Z:scalar)
 
-vec_dot(X, Y, Z) :-
-        vec_dot(X, Y, 0, Z).
+dot(X, Y, Z) :-
+        dot(X, Y, 0, Z).
 
-vec_dot([], [], Z, Z).
-vec_dot([X|Xs], [Y|Ys], S0, Z) :-
-        S is X * Y + S0,
-        vec_dot(Xs, Ys, S, Z).
+dot([], [], Z, Z).
+dot([X|Xs], [Y|Ys], Z0, Z) :-
+        Z1 is X * Y + Z0,
+        dot(Xs, Ys, Z1, Z).
 
 
 :- begin_tests(vector).
 
-test(vec_sum) :-
-        vec_sum([1,2,3], [1,2,3], [2,4,6]).
+test(sum) :-
+        sum([1,2,3], [1,2,3], [2,4,6]).
 
-test(vec_prod) :-
-        vec_prod([1,2,3], [1,2,3], [1,4,9]).
+test(prod) :-
+        prod([1,2,3], [1,2,3], [1,4,9]).
 
-test(vec_dot) :-
-        vec_dot([1,2,3], [1,2,3], 14).
+test(dot) :-
+        dot([1,2,3], [1,2,3], 14).
 
 :- end_tests(vector).
