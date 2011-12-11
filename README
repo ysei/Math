@@ -1,0 +1,23 @@
+README - Math, a library of everything mathematical.
+
+* CONTENTS
+The src directory contains the following entries:
++ linalg :: Linear algebra operations
++ nat.pl :: Natural numbers and operations
++ prop :: Propositional logic
++ set.pl :: Set operations
+
+* REFERENCES
++ [[http://www.swi-prolog.org/][The SWI-Prolog's homepage]]
++ [[http://arxiv.org/abs/0911.2899][Coding Guidelines for Prolog]]
+
+* LICENSE
+See the file COPYING in this directory.
+
+* INSTALL
+This project consists off Prolog modules, so just get them and use
+them. 
+
+The Prolog system used for development is SWI-Prolog 5.10.5. Other
+versions of SWI-Prolog should work but other systems will probably not
+work without at least some minimal changes.
